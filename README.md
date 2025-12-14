@@ -51,6 +51,7 @@ Notes
 
 Contributing
 - Open a PR or modify the project locally to add features (sorting, due dates, editing tasks, etc.).
+	- Please follow the Code of Conduct in `.github/CODE_OF_CONDUCT.md` — contributors are expected to be courteous and respectful.
 
 Custom domain & 404 troubleshooting
 
