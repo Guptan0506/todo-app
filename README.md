@@ -1,5 +1,7 @@
 # Todo App
 
+[![Live site](https://img.shields.io/badge/Live-Site-brightgreen)](https://guptan0506.github.io/todo-app/) [![Pages Status](https://github.com/guptan0506/todo-app/actions/workflows/deploy.yml/badge.svg)](https://github.com/guptan0506/todo-app/actions/workflows/deploy.yml)
+
 This is a minimal to-do list web app with the following features:
 
 - Add tasks via the input and Add button (or by pressing Enter)
