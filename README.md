@@ -27,6 +27,12 @@ npm test
 Lightweight single-file build
 1. Open `build/index.light.html` in your browser (no server required) — it's a single-file lightweight app with inlined CSS/JS.
 
+Auto-deploy with GitHub Actions
+1. Push this repository to GitHub (set `origin` remote and push `main`).
+2. The repository includes a GitHub Actions workflow that automatically: runs tests, builds the project, and deploys the `build` folder to the `gh-pages` branch.
+3. The workflow copies `build/index.light.html` to `build/index.html` before deployment so the production artifact works.
+4. Once deployed, your site will be available at `https://<username>.github.io/<repo>/`.
+
 Or run the build helper (this runs the ESBuild-based bundler; run `npm install` first):
 ```
 npm install

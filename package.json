@@ -5,10 +5,13 @@
   "scripts": {
     "test": "node tests/tasks.test.js",
     "build": "node build/build.js",
-    "watch": "node build/build.js --watch"
+    "watch": "node build/build.js --watch",
+    "predeploy": "npm run build && cp build/index.light.html build/index.html",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "esbuild": "^0.18.0"
+    "esbuild": "^0.18.0",
+    "gh-pages": "^6.3.0"
   },
   "dependencies": {
     "chokidar": "^4.0.3"
