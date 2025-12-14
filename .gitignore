@@ -1,6 +1,6 @@
 node_modules/
-build/
-/*.light.html
+build/*.light.html
+!build/build.js
 *.log
 dist/
 coverage/
