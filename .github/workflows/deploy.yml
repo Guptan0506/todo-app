@@ -31,9 +31,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Ensure build/index.html exists
+      - name: Ensure build/index.html exists and copy CNAME if present
         run: |
           if [ -f build/index.light.html ]; then cp build/index.light.html build/index.html; fi
+          if [ -f CNAME ]; then cp CNAME build/CNAME; fi
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
