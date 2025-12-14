@@ -51,11 +51,10 @@ Contributing
 - Open a PR or modify the project locally to add features (sorting, due dates, editing tasks, etc.).
 
 Custom domain & 404 troubleshooting
-----------------------------------
 
 If your site is deployed but redirects to a custom domain and returns a 404 (for example `www.example.com`), see these steps:
-
 - If you want to host the site on your GitHub Pages URL (e.g. `https://<username>.github.io/<repo>/`):
+	- In the repository **Settings → Pages**, remove the custom domain (clear the Custom domain field) and save. Or remove the `CNAME` file in your repo and the action will no longer push a CNAME to the `gh-pages` branch; the repo has been updated to use the default GitHub Pages URL.
 	- In the repository **Settings → Pages**, remove the custom domain (clear the Custom domain field) and save. Or remove the `CNAME` file in your repo and the action will no longer push a CNAME to the `gh-pages` branch.
 - If you want a custom domain to be used (e.g. `www.example.com`):
 	- Add a `CNAME` file (top-level) with the domain name (e.g. `www.example.com`), commit and push.
