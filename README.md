@@ -24,6 +24,19 @@ Run unit tests
 npm test
 ```
 
+Lightweight single-file build
+1. Open `build/index.light.html` in your browser (no server required) — it's a single-file lightweight app with inlined CSS/JS.
+
+Or run the build helper (this runs the ESBuild-based bundler; run `npm install` first):
+```
+npm install
+npm run build
+```
+
+Notes about the default `index.html`
+- The repository has a lightweight single-file `index.html` (generated) which is what opens by default.
+- The original multi-file dev version is preserved as `index.dev.html` for development.
+
 Notes
 - Tasks are saved to `localStorage` under the key `todoApp.tasks`.
 - Styling is minimal; edit `style.css` to update the look and feel.

@@ -74,6 +74,14 @@ button.delete {
 	white-space: nowrap; border: 0; padding: 0;
 }
 
+.small-btn { padding: 4px 6px; font-size: 12px; }
+.task-actions { display: flex; gap: 6px; align-items: center; }
+.edit { background: #2b8cff; color: #fff; border: none; }
+.up, .down { background: #ddd; border: none; }
+.up:disabled, .down:disabled { opacity: 0.4; cursor: not-allowed; }
+.delete { background: transparent; border: none; font-weight: bold; font-size: 16px; color: #888; }
+.edit-input { padding: 6px; font-size: 14px; width: 100%; }
+
 .controls {
 	display: flex;
 	gap: 8px;

@@ -4,6 +4,8 @@ import {
     addTaskToArray,
     deleteTaskAt,
     toggleCompleteAt,
+    updateTaskAt,
+    moveTask,
     sortTasks,
     filterTasks,
     saveTasks,
@@ -52,6 +54,10 @@ assert.strictEqual(arr[0].completed, true);
 arr = toggleCompleteAt(arr, 0);
 assert.strictEqual(arr[0].completed, false);
 
+// Test updateTaskAt
+arr = updateTaskAt(arr, 0, { text: 'Task 2 edited' });
+assert.strictEqual(arr[0].text, 'Task 2 edited');
+
 // Test sorting: set createdAt values
 const now = Date.now();
 const tasks = [
@@ -65,6 +71,23 @@ let sorted = sortTasks(tasks, 'created');
 assert.strictEqual(sorted[0].text, 'B');
 assert.strictEqual(sorted[1].text, 'A');
 assert.strictEqual(sorted[2].text, 'C');
+
+// Test moveTask
+const mv = [
+    patchCreatedAt(createTask('1'), now - 3000),
+    patchCreatedAt(createTask('2'), now - 2000),
+    patchCreatedAt(createTask('3'), now - 1000),
+];
+let moved = moveTask(mv, 2, 0);
+assert.strictEqual(moved[0].text, '3');
+assert.strictEqual(moved[1].text, '1');
+assert.strictEqual(moved[2].text, '2');
+
+// boundary cases: moving first up or last down should keep order
+let movedTop = moveTask(mv, 0, 0);
+assert.strictEqual(movedTop[0].text, '1');
+let movedBottom = moveTask(mv, 2, 2);
+assert.strictEqual(movedBottom[2].text, '3');
 
 sorted = sortTasks(tasks, 'priority');
 // priority order: High (B), Medium (C), Low (A)

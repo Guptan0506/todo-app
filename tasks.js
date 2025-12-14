@@ -30,6 +30,18 @@ export function toggleCompleteAt(tasks, index) {
     return tasks.map((t, i) => i === index ? { ...t, completed: !t.completed } : t);
 }
 
+export function updateTaskAt(tasks, index, patch) {
+    return tasks.map((t, i) => i === index ? { ...t, ...patch } : t);
+}
+
+export function moveTask(tasks, fromIndex, toIndex) {
+    if (fromIndex === toIndex) return tasks.slice();
+    const result = tasks.slice();
+    const [item] = result.splice(fromIndex, 1);
+    result.splice(toIndex, 0, item);
+    return result;
+}
+
 export function sortTasks(tasks, method = 'created') {
     const copy = [...tasks];
     switch (method) {

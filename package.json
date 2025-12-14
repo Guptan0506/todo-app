@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "test": "node tests/tasks.test.js"
+    "test": "node tests/tasks.test.js",
+    "build": "node build/build.js",
+    "watch": "node build/build.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.18.0"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3"
   }
 }

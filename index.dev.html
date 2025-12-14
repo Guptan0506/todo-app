@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My To-Do List (dev)</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>My To-Do List</h1>
+    <div class="controls">
+      <label for="taskInput" class="visually-hidden">New task</label>
+      <input type="text" id="taskInput" placeholder="Enter a task" aria-label="New task">
+      <label for="prioritySelect">Priority</label>
+      <select id="prioritySelect">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+      <label for="dueDateInput">Due</label>
+      <input id="dueDateInput" type="date" aria-label="Due date">
+      <button id="addButton" type="button">Add</button>
+      <button id="clearAllButton" type="button" class="danger">Clear All</button>
+    </div>
+    <div class="toolbar">
+      <label for="sortSelect">Sort</label>
+      <select id="sortSelect">
+        <option value="created">Created (new first)</option>
+        <option value="priority">Priority (high → low)</option>
+        <option value="due">Due date (soonest)</option>
+        <option value="text">Text (A → Z)</option>
+      </select>
+      <label for="filterSelect">Filter</label>
+      <select id="filterSelect">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+    <ul id="taskList" aria-live="polite"></ul>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
