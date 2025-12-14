@@ -1,19 +1,28 @@
 function addTask() {
-    let input = document.getElementById("taskInput");
-    let taskInput = input.ariaValueMax;
+    const input = document.getElementById("taskInput");
+    const taskText = input.value.trim();
 
     if (taskText === "") {
-        alert("Please emter a task");
+        alert("Please enter a task");
         return;
-    };
+    }
 
-    let li = document.createElement("li");
+    const li = document.createElement("li");
     li.textContent = taskText;
 
-    li.onclick = function () {
+    // clicking a task removes it from the list
+    li.addEventListener('click', function () {
         li.remove();
-    };
+    });
 
     document.getElementById("taskList").appendChild(li);
     input.value = "";
 }
+
+// allow adding the task by pressing Enter in the input
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('taskInput');
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') addTask();
+    });
+});
