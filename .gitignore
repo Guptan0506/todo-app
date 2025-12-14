@@ -1,0 +1,9 @@
+node_modules/
+build/
+/*.light.html
+*.log
+dist/
+coverage/
+.DS_Store
+/.idea/
+/.vscode/

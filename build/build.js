@@ -41,7 +41,7 @@ async function build(watch = false) {
   if (watch) {
     console.log('Watching files for changes...');
     // Simple watch: watch key source files and rebuild on change
-    const watcher = ywatch([path.join(ROOT, 'script.js'), path.join(ROOT, 'tasks.js'), path.join(ROOT, 'style.css'), path.join(ROOT, 'index.dev.html')]);
+    const watcher = ywatch([path.join(ROOT, 'script.js'), path.join(ROOT, 'tasks.js'), path.join(ROOT, 'style.css'), path.join(ROOT, 'index.html')]);
     watcher.on('change', async (filePath) => {
       console.log('File changed:', filePath, 'Rebuilding...');
       try {

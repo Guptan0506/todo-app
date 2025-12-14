@@ -1,86 +1,43 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Todo (light)</title>
-  <style>
-    body{font-family:system-ui,Roboto,Arial;max-width:800px;margin:32px auto;padding:0 12px;color:#222}
-    h1{text-align:center;margin-bottom:12px}
-    .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center}
-    #taskInput{padding:8px 10px;font-size:15px;width:55%;max-width:400px}
-    button{padding:8px 10px;font-size:14px;cursor:pointer}
-    button.danger{background:#e85b5b;color:#fff;border:none}
-    ul#taskList{list-style:none;padding:0;margin-top:18px}
-    ul#taskList li{display:flex;align-items:center;padding:8px;border:1px solid #eee;border-radius:6px;margin-bottom:8px;gap:10px}
-    .task-text{flex:1}
-    .completed .task-text{text-decoration:line-through;color:#888}
-    .task-meta{font-size:12px;color:#666}
-    .toolbar{margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:center}
-  </style>
-</head>
-<body>
-  <h1>Todo (light)</h1>
-  <div class="controls">
-    <input id="taskInput" placeholder="Enter a task" aria-label="New task">
-    <select id="prioritySelect"><option>Low</option><option selected>Medium</option><option>High</option></select>
-    <input id="dueDateInput" type="date" aria-label="Due date" style="padding:6px 8px">
-    <button id="addButton">Add</button>
-    <button id="clearAllButton" class="danger">Clear All</button>
-  </div>
-  <div class="toolbar">
-    <select id="sortSelect"><option value="created">Created</option><option value="priority">Priority</option><option value="due">Due</option><option value="text">Text</option></select>
-    <select id="filterSelect"><option value="all">All</option><option value="pending">Pending</option><option value="completed">Completed</option></select>
-  </div>
-  <ul id="taskList" aria-live="polite"></ul>
-  <script>(()=>{var g="todoApp.tasks";function T(a,n="Medium",t=null){let e=n==="High"?2:n==="Medium"?1:0,r=Date.now();return{id:`${r}-${Math.random().toString(36).slice(2,9)}`,text:String(a||""),completed:!1,createdAt:r,dueDate:t||null,priority:n,priorityValue:e}}function y(a,n){return[...a,n]}function h(a,n){return a.filter((t,e)=>e!==n)}function A(a,n){return a.map((t,e)=>e===n?{...t,completed:!t.completed}:t)}function D(a,n,t){return a.map((e,r)=>r===n?{...e,...t}:e)}function I(a,n,t){if(n===t)return a.slice();let e=a.slice(),r=e.splice(n,1)[0];return e.splice(t,0,r),e}function L(a,n="created"){let t=[...a];switch(n){case"priority":return t.sort((e,r)=>r.priorityValue-e.priorityValue||e.createdAt-r.createdAt);case"due":return t.sort((e,r)=>!e.dueDate&&!r.dueDate?e.createdAt-r.createdAt:e.dueDate?r.dueDate?new Date(e.dueDate)-new Date(r.dueDate)||e.createdAt-r.createdAt:-1:1);case"text":return t.sort((e,r)=>e.text.localeCompare(r.text));case"created":default:return t.sort((e,r)=>r.createdAt-e.createdAt)}}function S(a,n="all"){switch(n){case"completed":return a.filter(t=>t.completed);case"pending":return a.filter(t=>!t.completed);default:return a}}function C(a,n=typeof localStorage!="undefined"?localStorage:null){if(!n)return!1;try{n.setItem(g,JSON.stringify(a));return!0}catch{return!1}}function B(a=typeof localStorage!="undefined"?localStorage:null){if(!a)return[];try{let n=a.getItem(g);return n?JSON.parse(n):[]}catch{return[]}}var o=[],M="created",N="all";function u(){return C(o)}function $(){o=B()}function l(){let a=document.getElementById("taskList");a.innerHTML="";let n=S(o,N);n=L(n,M),n.forEach(t=>{let e=document.createElement("li"),r=o.findIndex(d=>d.id===t.id);e.dataset.index=r,e.className=t.completed?"completed":"",e.draggable=!0;let c=document.createElement("input");c.type="checkbox",c.checked=t.completed,c.setAttribute("aria-label",`Mark task ${t.text} as complete`),c.addEventListener("change",()=>{o=A(o,r),u(),l()});let m=document.createElement("div");m.className="task-wrapper";let i=document.createElement("span");i.textContent=t.text,i.className="task-text";let f=document.createElement("span");f.className="task-meta";let k=[];t.dueDate&&k.push(`Due: ${t.dueDate}`),t.priority&&k.push(`Priority: ${t.priority}`),f.textContent=k.join(' • '),m.appendChild(i),m.appendChild(f);let p=document.createElement("button");p.className="delete",p.textContent="×",p.title="Delete task",p.addEventListener("click",()=>{o=h(o,r),u(),l()}),i.addEventListener("dblclick",()=>{let d=document.createElement("input");d.type="text",d.value=i.textContent,d.className="edit-input",i.replaceWith(d),d.focus();function E(){let s=d.value.trim();if(s===""){l();return}o=D(o,r,{text:s}),u(),l()}d.addEventListener("blur",E),d.addEventListener("keydown",s=>{s.key==="Enter"?d.blur():s.key==="Escape"&&l()})}),e.addEventListener("dragstart",d=>{d.dataTransfer.setData("text/plain",t.id),d.dataTransfer.effectAllowed="move"}),e.addEventListener("dragover",d=>{d.preventDefault(),d.dataTransfer.dropEffect="move"}),e.addEventListener("drop",d=>{d.preventDefault();let E=d.dataTransfer.getData("text/plain"),s=o.findIndex(x=>x.id===E),v=o.findIndex(x=>x.id===t.id);s>=0&&v>=0&&s!==v&&(o=I(o,s,v),u(),l())}),e.appendChild(c),e.appendChild(m),e.appendChild(p),a.appendChild(e)})}function w(){let a=document.getElementById("taskInput"),n=a.value.trim();if(n===""){alert("Please enter a task");return}let t=document.getElementById("prioritySelect").value,e=document.getElementById("dueDateInput").value||null,r=T(n,t,e);o=y(o,r),u(),l(),a.value="",a.focus()}function b(){o.length&&confirm("Clear all tasks?")&&(o=[],u(),l())}document.addEventListener("DOMContentLoaded",()=>{$(),l();let a=document.getElementById("taskInput"),n=document.getElementById("addButton"),t=document.getElementById("clearAllButton"),e=document.getElementById("sortSelect"),r=document.getElementById("filterSelect");n.addEventListener("click",w),t.addEventListener("click",b),a.addEventListener("keydown",c=>{c.key==="Enter"&&w()}),e.addEventListener("change",c=>{M=c.target.value,l()}),r.addEventListener("change",c=>{N=c.target.value,l()})});})();</script>
-</body>
-</html>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>My To-Do List</title>
-		<link rel="stylesheet" href="style.css">
-	</head>
-	<body>
-		<h1>My To-Do List</h1>
-
-		<div class="controls">
-			<label for="taskInput" class="visually-hidden">New task</label>
-			<input type="text" id="taskInput" placeholder="Enter a task" aria-label="New task">
-			<label for="prioritySelect">Priority</label>
-			<select id="prioritySelect">
-				<option value="Low">Low</option>
-				<option value="Medium" selected>Medium</option>
-				<option value="High">High</option>
-			</select>
-			<label for="dueDateInput">Due</label>
-			<input id="dueDateInput" type="date" aria-label="Due date">
-			<button id="addButton" type="button">Add</button>
-			<button id="clearAllButton" type="button" class="danger">Clear All</button>
-		</div>
-
-		<div class="toolbar">
-			<label for="sortSelect">Sort</label>
-			<select id="sortSelect">
-				<option value="created">Created (new first)</option>
-				<option value="priority">Priority (high → low)</option>
-				<option value="due">Due date (soonest)</option>
-				<option value="text">Text (A → Z)</option>
-			</select>
-
-			<label for="filterSelect">Filter</label>
-			<select id="filterSelect">
-				<option value="all">All</option>
-				<option value="pending">Pending</option>
-				<option value="completed">Completed</option>
-			</select>
-		</div>
-
-		<ul id="taskList" aria-live="polite"></ul>
-
-		<script type="module" src="script.js"></script>
-	</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My To-Do List (dev)</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>My To-Do List</h1>
+    <div class="controls">
+      <label for="taskInput" class="visually-hidden">New task</label>
+      <input type="text" id="taskInput" placeholder="Enter a task" aria-label="New task">
+      <label for="prioritySelect">Priority</label>
+      <select id="prioritySelect">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+      <label for="dueDateInput">Due</label>
+      <input id="dueDateInput" type="date" aria-label="Due date">
+      <button id="addButton" type="button">Add</button>
+      <button id="clearAllButton" type="button" class="danger">Clear All</button>
+    </div>
+    <div class="toolbar">
+      <label for="sortSelect">Sort</label>
+      <select id="sortSelect">
+        <option value="created">Created (new first)</option>
+        <option value="priority">Priority (high → low)</option>
+        <option value="due">Due date (soonest)</option>
+        <option value="text">Text (A → Z)</option>
+      </select>
+      <label for="filterSelect">Filter</label>
+      <select id="filterSelect">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+	<ul id="taskList" aria-live="polite"></ul>
+	<script type="module" src="script.js"></script>
+  </body>
 </html>

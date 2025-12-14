@@ -35,7 +35,7 @@ npm run build
 
 Notes about the default `index.html`
 - The repository has a lightweight single-file `index.html` (generated) which is what opens by default.
-- The original multi-file dev version is preserved as `index.dev.html` for development.
+- The original multi-file dev version is available as `index.html` in the repository root (development).
 
 Notes
 - Tasks are saved to `localStorage` under the key `todoApp.tasks`.
